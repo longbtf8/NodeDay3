@@ -19,10 +19,10 @@ app.get("/test-error", (req, res) => {
   //   res.write("Writing...");
   throw new Error("Test exception");
 });
+app.use("/api", apiRouter);
 
 app.use(notFoundHandler);
 app.use(exceptionHandler);
-app.use("/api", apiRouter);
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

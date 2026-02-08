@@ -6,7 +6,6 @@ const exceptionHandler = (err, req, res, next) => {
   const message = err.message || "Internal Server Error";
   const status = err.statusCode || 500;
   const error = process.env.NODE_ENV === "development" ? err.stack : undefined;
-  console.log(process.env.NODE_ENV);
   res.error(status, error, message);
 };
 
