@@ -46,7 +46,6 @@ const update = async (req, res) => {
   try {
     const { id } = req.params;
     const { title } = req.body;
-    console.log(id, title);
     const row = await taskModel.update(id, title);
     if (row) {
       res.success({
