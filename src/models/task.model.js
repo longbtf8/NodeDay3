@@ -22,13 +22,43 @@ const create = async (taskData) => {
   try {
     const title = taskData;
     const [rows] = await pool.query(
-      `INSERT INTO tasks (title) VALUES (${title})`,
+      `INSERT INTO tasks (title) VALUES ("${title}")`,
     );
+
     if (rows) {
-      console.log(rows);
+      return true;
+    }
+  } catch (error) {
+    return false;
+  }
+};
+const update = async (id, taskData) => {
+  try {
+    const title = taskData;
+    const [rows] = await pool.query(
+      `UPDATE tasks SET title = '${title}' WHERE id = ${id}`,
+    );
+    console.log(rows);
+
+    if (rows) {
+      return true;
     }
   } catch (error) {
     console.log(error);
+    return false;
   }
 };
-module.exports = { findAll, findOne, create };
+const destroy = async (id) => {
+  try {
+    const [rows] = await pool.query(`DELETE FROM tasks WHERE id = ${id}`);
+    console.log(rows);
+
+    if (rows) {
+      return true;
+    }
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+module.exports = { findAll, findOne, create, update, destroy };

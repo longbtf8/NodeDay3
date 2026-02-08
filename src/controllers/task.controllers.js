@@ -1,4 +1,3 @@
-const pool = require("@/config/database");
 const taskModel = require("@/models/task.model");
 
 const findAll = async (req, res) => {
@@ -26,9 +25,58 @@ const findOne = async (req, res) => {
 const create = async (req, res) => {
   try {
     const { title } = req.body;
-    console.log(req.body);
+    console.log(title);
     const row = await taskModel.create(title);
-    res.success(row);
+    if (row) {
+      res.success({
+        message: "Done",
+      });
+    } else {
+      res.error({
+        message: "Error create",
+      });
+    }
+  } catch (error) {
+    res.error({
+      message: "Resource not found",
+    });
+  }
+};
+const update = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title } = req.body;
+    console.log(id, title);
+    const row = await taskModel.update(id, title);
+    if (row) {
+      res.success({
+        message: "Done",
+      });
+    } else {
+      res.error({
+        message: "Error Update",
+      });
+    }
+  } catch (error) {
+    res.error({
+      message: "Resource not found",
+    });
+  }
+};
+const destroy = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const row = await taskModel.destroy(id);
+    if (row) {
+      res.success({
+        message: "Done",
+      });
+    } else {
+      res.error({
+        message: "Error delete",
+      });
+    }
   } catch (error) {
     res.error({
       message: "Resource not found",
@@ -36,4 +84,4 @@ const create = async (req, res) => {
   }
 };
 
-module.exports = { findAll, findOne, create };
+module.exports = { findAll, findOne, create, update, destroy };

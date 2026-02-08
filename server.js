@@ -9,6 +9,7 @@ const app = express();
 const port = 3000;
 const apiRouter = require("@/routes/index");
 
+app.use(express.json());
 app.use(responseFormat);
 app.use(apiRateLimiter);
 app.get("/test-success", (req, res) => {

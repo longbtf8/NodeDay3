@@ -5,4 +5,5 @@ const router = express.Router();
 router.get("/", tasksController.findAll);
 router.get("/:id", tasksController.findOne);
 router.post("/", tasksController.create);
+router.put("/:id", tasksController.update);
 module.exports = router;
