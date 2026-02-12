@@ -6,20 +6,21 @@ const findAll = async (req, res) => {
 
     res.success(rows);
   } catch (error) {
-    res.error({
-      message: "Resource not found",
-    });
+    res.error(404, ((message = "Resource not found"), error));
   }
 };
 const findOne = async (req, res) => {
   try {
     const { id } = req.params;
     const row = await taskModel.findOne(id);
-    res.success(row);
+
+    if (row) {
+      res.success(row);
+    } else {
+      res.error(404, ((message = "Resource not found"), error));
+    }
   } catch (error) {
-    res.error({
-      message: "Resource not found",
-    });
+    res.error(404, ((message = "Resource not found"), error));
   }
 };
 const create = async (req, res) => {
@@ -32,14 +33,10 @@ const create = async (req, res) => {
         message: "Done",
       });
     } else {
-      res.error({
-        message: "Error create",
-      });
+      res.error(400, (message = "Error create"));
     }
   } catch (error) {
-    res.error({
-      message: "Resource not found",
-    });
+    res.error(404, ((message = "Resource not found"), error));
   }
 };
 const update = async (req, res) => {
@@ -52,14 +49,10 @@ const update = async (req, res) => {
         message: "Done",
       });
     } else {
-      res.error({
-        message: "Error Update",
-      });
+      res.error(400, (message = "Error Update"));
     }
   } catch (error) {
-    res.error({
-      message: "Resource not found",
-    });
+    res.error(404, ((message = "Resource not found"), error));
   }
 };
 const destroy = async (req, res) => {
@@ -72,14 +65,10 @@ const destroy = async (req, res) => {
         message: "Done",
       });
     } else {
-      res.error({
-        message: "Error delete",
-      });
+      res.error(400, (message = "Error delete"));
     }
   } catch (error) {
-    res.error({
-      message: "Resource not found",
-    });
+    res.error(404, ((message = "Resource not found"), error));
   }
 };
 
